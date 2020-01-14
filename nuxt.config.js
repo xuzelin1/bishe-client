@@ -30,6 +30,7 @@ module.exports = {
   */
   plugins: [
     '@/plugins/element-ui',
+    '@/scripts/use-components',
   ],
   /*
   ** Nuxt.js dev-modules
