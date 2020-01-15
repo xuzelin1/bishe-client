@@ -1,3 +1,3 @@
-import Banner from 'banner.vue';
+import Banner from './banner.vue';
 
 export default Banner;
