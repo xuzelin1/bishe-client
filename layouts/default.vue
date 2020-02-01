@@ -8,6 +8,7 @@
   body {
     padding: 0;
     margin: 0;
+    background-color: #f8f8f8;
   }
   a {
     text-decoration: none;

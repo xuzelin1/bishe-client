@@ -24,22 +24,32 @@
           :to="link.url">{{ link.title }}</nuxt-link>
       </div>
       <div class="banner-row clearfix">
-        <div style="width: 550px; height: 240px;" class="margin-div"></div>
-        <div style="width: 150px; height: 240px;" class="margin-div"></div>
-        <div style="width: 228px; height: 240px;" class="margin-div"></div>
+        <div style="width: 550px; height: 240px;" class="margin-right"></div>
+        <div style="width: 150px; height: 240px;" class="margin-right"></div>
+        <div style="width: 228px; height: 240px;" class="margin-right login-pane">
+          <div class="float">
+            <div class="login-container">
+              <BannerLogin />
+            </div>
+          </div>
+        </div>
       </div>
       <div class="banner-row clearfix">
-        <div style="width: 270px; height: 165px;" class="margin-div"></div>
-        <div style="width: 270px; height: 165px;" class="margin-div"></div>
-        <div style="width: 150px; height: 165px;" class="margin-div"></div>
-        <div style="width: 228px; height: 165px;" class="margin-div"></div>
+        <div style="width: 270px; height: 165px;" class="margin-right margin-top"></div>
+        <div style="width: 270px; height: 165px;" class="margin-right margin-top"></div>
+        <div style="width: 150px; height: 165px;" class="margin-right margin-top"></div>
+        <div style="width: 228px; height: 165px;" class="margin-right margin-top"></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import BannerLogin from '../banner-login';
 export default {
+  components: {
+    BannerLogin,
+  },
   data () {
     return {
       navList: [
@@ -69,8 +79,8 @@ export default {
         { title: '美团公益', url: '',},
       ]
     }
-  }
-}
+  },
+};
 </script>
 
 <style lang="less">
@@ -158,15 +168,23 @@ export default {
         }
       }
 
-      .margin-div {
-        margin-top: 10px;
-        background: red;
+      .margin-right {
+        background: #fff;
         float: left;
       }
-
-      .margin-div:not(:last-child) {
+      .margin-top {
+        margin-top: 10px;
+      }
+      .margin-right:not(:last-child) {
         margin-right: 10px;
       }
+    }
+
+    .login-container {
+      width: 228px;
+      height: 238px;
+      background-color: #fff;
+      border: 1px solid #e5e5e5;
     }
   }
 </style>

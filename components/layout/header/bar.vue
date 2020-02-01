@@ -4,7 +4,7 @@
       <div class="header-bar-position">
         <i class="el-icon-location"></i>
         广州市
-        <a href="" class="change-city">切换城市</a>
+        <nuxt-link to="" class="change-city">切换城市</nuxt-link>
         <span>[</span>
         <span>白云区</span>
         <span>番禺区</span>

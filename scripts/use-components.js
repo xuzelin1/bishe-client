@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Header from '@/components/header.vue';
+import Header from '@/components/layout/header.vue';
 
 const components = {
   Header,
