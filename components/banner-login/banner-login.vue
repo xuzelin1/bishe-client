@@ -4,7 +4,7 @@
       <img src="https://s0.meituan.net/bs/fe-web-meituan/e350c4a/img/avatar.jpg" alt="">
     </div>
     <p class="user-name">Hi！您好</p>
-    <nuxt-link to="/" class="btn-login">注册</nuxt-link>
+    <nuxt-link to="/register" class="btn-login">注册</nuxt-link>
     <nuxt-link to="/" class="btn-login">登录</nuxt-link>
   </div>
 </template>
