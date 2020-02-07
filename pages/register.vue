@@ -108,7 +108,7 @@ export default {
           trigger: 'blur'
         }],
         cpwd: [{
-          required: true,
+          required: true, 
           message: '确认密码',
           trigger: 'blur'
         }, {
@@ -202,7 +202,6 @@ export default {
 </script>
 
 <style lang="less">
-// @import "@/assets/css/register/index.scss";
 
 .page-register {
   .header {
