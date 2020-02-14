@@ -29,7 +29,7 @@
     },
     data () {
       return {
-
+        activeName: 0,
       };
     },
     methods: {

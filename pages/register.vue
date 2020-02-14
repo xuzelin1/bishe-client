@@ -147,7 +147,7 @@ export default {
       })
       if (!namePass && !emailPass) {
         self.$axios.post('/users/verify', {
-          username: encodeURIComponent(self.ruleForm.name),
+          username: self.ruleForm.name,
           email: self.ruleForm.email
         }).then(({
           status,
