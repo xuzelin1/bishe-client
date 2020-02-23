@@ -2,14 +2,7 @@
   <div class="header-bar">
     <div class="header-bar-content">
       <div class="header-bar-position">
-        <i class="el-icon-location"></i>
-        广州市
-        <nuxt-link to="" class="change-city">切换城市</nuxt-link>
-        <span>[</span>
-        <span>白云区</span>
-        <span>番禺区</span>
-        <span>天河区</span>
-        <span>]</span>
+        <Geo />
       </div>
       <div class="header-bar-nav">
         <span class="nav-item" v-for="nav in navList" :key="nav.label">
@@ -21,7 +14,11 @@
 </template>
 
 <script>
+import Geo from './geo.vue'
 export default {
+  components: {
+    Geo,
+  },
   data () {
     return {
       navList: [

@@ -1,19 +1,36 @@
 <template>
   <div class="banner clearfix">
     <div class="left-banner">
-      <div class="category-nav-container">
+      <div class="category-nav-container" @mouseleave="mouseleave">
         <div class="nav-title-wrapper">
           <span class="nav-title">全部分类</span>
         </div>
         <div class="nav-content-wrapper">
           <ul>
-            <li v-for="nav in navList" :key="nav.id" class="nav-li">
-              <i :class="nav.icon"></i>
-              <span v-for="title in nav.titles" :key="title" class="title">{{ title }}</span>
-            </li>
+            <li
+              v-for="nav in navList"
+              :key="nav.id"
+              @mouseenter="enter"
+              class="nav-li">
+                <span :class="nav.type">{{ nav.name }}</span>
+             </li>
           </ul>
         </div>
-        <div class="nav-detail-wrapper"></div>
+        <div class="nav-detail-wrapper" v-if="kind">
+          <div
+            class="detail"
+            @mouseenter="sover"
+            @mouseleave="sout">
+            <template
+              v-for="(item,idx) in curdetail.child">
+              <h4 :key="idx" class="detail-title">{{ item.title }}</h4>
+              <span
+                class="detail-item"
+                v-for="v in item.child"
+                :key="v">{{ v }}</span>
+            </template>
+          </div>
+        </div>
       </div>
     </div>
     <div class="right-banner">
@@ -52,24 +69,7 @@ export default {
   },
   data () {
     return {
-      navList: [
-        { id: 0, icon: '', titles: ['美食'],},
-        { id: 1, icon: '', titles: ['外卖'],},
-        { id: 2, icon: '', titles: ['酒店'],},
-        { id: 3, icon: '', titles: ['榛果民宿'],},
-        { id: 4, icon: '', titles: ['猫眼电影'],},
-        { id: 5, icon: '', titles: ['机票', '火车票'],},
-        { id: 6, icon: '', titles: ['休闲娱乐', 'KTV'],},
-        { id: 7, icon: '', titles: ['生活服务'],},
-        { id: 8, icon: '', titles: ['丽人', '美发', '医学美容'],},
-        { id: 9, icon: '', titles: ['结婚', '婚纱摄影', '婚宴'],},
-        { id: 10, icon: '', titles: ['亲子', '儿童乐园', '幼教'],},
-        { id: 11, icon: '', titles: ['运动健身', '健身中心'],},
-        { id: 12, icon: '', titles: ['家装', '建材', '家居'],},
-        { id: 13, icon: '', titles: ['学习培训', '音乐培训'],},
-        { id: 14, icon: '', titles: ['医疗健康', '宠物', '爱车'],},
-        { id: 15, icon: '', titles: ['酒吧', '密室逃脱'],},
-      ],
+      navList: [],
       headerLink: [
         { title: '美团外卖', url: '',},
         { title: '猫眼电影', url: '',},
@@ -77,9 +77,37 @@ export default {
         { title: '民宿／公寓', url: '',},
         { title: '商家入驻', url: '',},
         { title: '美团公益', url: '',},
-      ]
+      ],
+      kind: '',
     }
   },
+  computed:{
+    curdetail:function(){
+      return this.navList.filter(item => item.type===this.kind)[0]
+    }
+  },
+  mounted () {
+    this.$axios.get('geo/menu').then((res) => {
+      this.navList = res.data.menu;
+    })
+  },
+  methods: {
+    mouseleave:function(){
+      let self=this;
+      self._timer=setTimeout(function(){
+        self.kind=''
+      },150)
+    },
+    enter (e) {
+      this.kind=e.target.querySelector('span').className;
+    },
+    sover:function(){
+      clearTimeout(this._timer)
+    },
+    sout:function(){
+      this.kind=''
+    }
+  }
 };
 </script>
 
@@ -129,19 +157,41 @@ export default {
 
             .nav-li {
               list-style: none;
-              .title {
-                font-size: 13px;
-                line-height: 20px;
-                height: 20px;
-                color: #646464;
-                cursor: pointer;
-              }
+              font-size: 13px;
+              line-height: 20px;
+              height: 20px;
+              color: #646464;
+              cursor: pointer;
+
               .title:not(:last-child){
                 &::after {
                   content: ' / ';
                 }
               }
             }
+          }
+        }
+
+        .nav-detail-wrapper {
+          position: absolute;
+          top: 60px;
+          left: 230px;
+          width: 400px;
+          height: 416px;
+          background-color: #fff;
+          z-index: 199;
+          color: #666;
+          overflow: hidden;
+          padding: 15px;
+
+          .detail-title {
+            border-bottom: 1px solid #666;
+            padding: 10px;
+          }
+          .detail-item {
+            display: inline-block;
+            margin: 8px;
+            font-size: 14px;
           }
         }
       }

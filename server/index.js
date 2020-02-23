@@ -3,7 +3,10 @@ const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 
 import bodyParser from 'koa-bodyparser'
+
 import users from './interface/users';
+import geo from './interface/geo';
+
 import session from 'koa-generic-session'
 import Redis from 'koa-redis'
 import json from 'koa-json'
@@ -12,7 +15,8 @@ import passport from './interface/utils/passport'
 import mongoose from 'mongoose'
 
 const app = new Koa()
-app.use(session({key: 'mt', prefix: 'mt:uid', store: new Redis()}))
+app.keys = ['xzl', 'keyskeys']
+app.use(session({key: 'xzl', prefix: 'xzl:uid', store: new Redis()}))
 app.use(json()) 
 app.use(bodyParser({
   extendTypes:['json','form','text']
@@ -47,6 +51,7 @@ async function start () {
   }
 
   app.use(users.routes()).use(users.allowedMethods());
+  app.use(geo.routes()).use(geo.allowedMethods());
 
   app.use((ctx) => {
     ctx.status = 200
