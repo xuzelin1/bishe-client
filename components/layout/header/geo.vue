@@ -11,7 +11,7 @@
 </template>
 
 <script>
-
+import { mapMutations } from 'vuex';
 export default {
   data () {
     return {
@@ -21,7 +21,6 @@ export default {
   },
   mounted () {
     this.$axios.get('geo/getPosition').then(({ data }) => {
-      console.log(data);
       this.province = data.province;
       this.city = data.city;
     })

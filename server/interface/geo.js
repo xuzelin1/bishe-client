@@ -26,6 +26,7 @@ router.get('/getPosition', async (ctx) => {
   }
 })
 
+// 或取省份接口
 router.get('/province', async (ctx) => {
   let {status, data: {
     province
@@ -52,6 +53,7 @@ router.get('/province/:id', async (ctx) => {
   }
 })
 
+// 所有城市
 router.get('/city', async (ctx) => {
   let {status, data: {
     city
@@ -67,6 +69,7 @@ router.get('/city', async (ctx) => {
   }
 })
 
+// 热门城市
 router.get('/hotCity', async (ctx) => {
   let {status, data: {
     hots
@@ -82,6 +85,7 @@ router.get('/hotCity', async (ctx) => {
   }
 })
 
+// 菜单
 router.get('/menu', async (ctx) => {
   let {status, data: {
     menu

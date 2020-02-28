@@ -6,6 +6,7 @@ import bodyParser from 'koa-bodyparser'
 
 import users from './interface/users';
 import geo from './interface/geo';
+import search from './interface/search';
 
 import session from 'koa-generic-session'
 import Redis from 'koa-redis'
@@ -52,6 +53,7 @@ async function start () {
 
   app.use(users.routes()).use(users.allowedMethods());
   app.use(geo.routes()).use(geo.allowedMethods());
+  app.use(search.routes()).use(search.allowedMethods());
 
   app.use((ctx) => {
     ctx.status = 200

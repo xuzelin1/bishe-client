@@ -6,22 +6,17 @@
       </a>
     </div>
     <div class="header-search-module">
-      <div class="search-block">
-        <input type="text" class="search-input" placeholder="搜索商家或地点">
-        <button class="search-btn">
-          <i class="el-icon-search"/>
-        </button>
-      </div>
-      <div class="search-suggest">
-
-      </div>
+      <search />
     </div>
   </div>
 </template>
 
 <script>
+import search from './search';
 export default {
-
+  components: {
+    search,
+  }
 }
 </script>
 
@@ -56,41 +51,6 @@ export default {
       left: 50%;
       transform: translate(-50%);
       z-index: 999;
-
-      .search-block {
-        width: 550px;
-        height: 40px;
-        background: #fff;
-
-        .search-input {
-          border: 1px solid #E5E5E5;
-          border-right: none;
-          border-radius: 4px 0 0 4px;
-          line-height: 100%;
-          box-sizing: border-box;
-          display: inline-block !important;
-          padding: 15px;
-          font-size: 14px;
-          height: 100%;
-          background: transparent;
-          width: 85.45%;
-        }
-
-        .search-btn {
-          outline: none;
-          width: 14.55%;
-          box-sizing: border-box;
-          line-height: 100%;
-          height: 100%;
-          background: #FFC300;
-          border: none;
-          float: right;
-          color: #222222;
-          cursor: pointer;
-          border-bottom-right-radius: 4px;
-          border-top-right-radius: 4px;
-        }
-      }
     }
   }
 </style>
