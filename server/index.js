@@ -7,6 +7,7 @@ import bodyParser from 'koa-bodyparser'
 import users from './interface/users';
 import geo from './interface/geo';
 import search from './interface/search';
+import categroy from './interface/categroy'
 
 import session from 'koa-generic-session'
 import Redis from 'koa-redis'
@@ -29,6 +30,7 @@ mongoose.connect(dbConfig.dbs,{
 
 app.use(passport.initialize())
 app.use(passport.session())
+  app.use(categroy.routes()).use(categroy.allowedMethods())
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
@@ -54,6 +56,7 @@ async function start () {
   app.use(users.routes()).use(users.allowedMethods());
   app.use(geo.routes()).use(geo.allowedMethods());
   app.use(search.routes()).use(search.allowedMethods());
+  app.use(categroy.routes()).use(categroy.allowedMethods())
 
   app.use((ctx) => {
     ctx.status = 200

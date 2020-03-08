@@ -1,17 +1,39 @@
 <template>
-  <div class="banner-login">
+  <div v-if="!username" class="banner-login">
     <div class="head-img-row">
       <img src="https://s0.meituan.net/bs/fe-web-meituan/e350c4a/img/avatar.jpg" alt="">
     </div>
     <p class="user-name">Hi！您好</p>
     <nuxt-link to="/register" class="btn-login">注册</nuxt-link>
-    <nuxt-link to="/" class="btn-login">登录</nuxt-link>
+    <nuxt-link to="/login" class="btn-login">登录</nuxt-link>
+  </div>
+  <div v-else class="banner-login">
+    <div class="avatar-pane">
+      <img src="https://img.meituan.net/avatar/b3f80e2be1be1c5cd9357422f01f504f2028.jpg" alt="">      
+    </div>
+    <p class="user-name">{{ username }}</p>
+
+    <div class="edit">
+      <nuxt-link to="/userinfo">
+        <i class="el-icon-setting"></i>
+      </nuxt-link>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-
+  data () {
+    return {
+      username: '',
+    };
+  },
+  mounted () {
+    this.$axios.get('users/getUser').then(res => {
+      console.log(res);
+      this.username = res.data.user;
+    });
+  }
 }
 </script>
 
@@ -60,6 +82,31 @@ export default {
       &:hover {
         background-color: #f6f6f6;
         transition: background-color 0.5s;
+      }
+    }
+
+    .avatar-pane {
+      width: 50px;
+      height: 50px;
+      margin: auto;
+      overflow: hidden;
+      border-radius: 50%;
+      margin-bottom: 15px;
+
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    .edit {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+
+      i {
+        color: #000;
+        font-size: 26px;
       }
     }
   }

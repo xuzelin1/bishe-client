@@ -86,6 +86,10 @@ router.post('/signin', async (ctx, next) => {
       }
     } else {
       if (user) {
+        ctx.cookies.set(
+          'username',
+          user.username,
+        )
         ctx.body = {
           code: 0,
           msg: '登录成功',
@@ -166,7 +170,7 @@ router.get('/getUser', async (ctx) => {
     const {
       username,
       email,
-    } = ctx.session.Passport.user;
+    } = ctx.session.passport.user;
     ctx.body = {
       user: username,
       email,

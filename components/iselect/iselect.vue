@@ -18,7 +18,7 @@
         v-for="item in city"
         :key="item.value"
         :label="item.label"
-        :value="item.value"/>
+        :value="item.label"/>
     </el-select>
     <el-autocomplete
       v-model="input"
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import _ from 'lodash';
 export default {
   data(){
@@ -55,6 +56,13 @@ export default {
         })
         self.cvalue=''
       }
+    },
+    cvalue (value) {
+      let province = this.province.filter(item => item.value === this.pvalue)[0].label;
+      this.setPosition({
+        province: province,
+        city: value
+      })
     }
   },
   mounted:async function(){
@@ -70,6 +78,9 @@ export default {
     }
   },
   methods:{
+    ...mapActions('modules/geo', [
+      'setPosition'
+    ]),
     querySearchAsync:_.debounce(async function(query,cb){
       let self=this;
       if(self.cities.length){
@@ -87,7 +98,10 @@ export default {
       }
     },200),
     handleSelect:function(item){
-      console.log(item.value);
+      this.setPosition({
+        // province: province,
+        city: item.value
+      })
     }
   }
 }

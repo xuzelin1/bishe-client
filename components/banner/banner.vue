@@ -41,8 +41,17 @@
           :to="link.url">{{ link.title }}</nuxt-link>
       </div>
       <div class="banner-row clearfix">
-        <div style="width: 550px; height: 240px;" class="margin-right"></div>
-        <div style="width: 150px; height: 240px;" class="margin-right"></div>
+        <div style="width: 550px; height: 240px;" class="margin-right">
+          <el-carousel height="240px">
+            <el-carousel-item v-for="item in carouselUrls" :key="item">
+              <!-- <h3 class="small">{{ item }}</h3> -->
+              <img :src="item" alt="" style="width: 550px; height: 240px;">
+            </el-carousel-item>
+          </el-carousel>
+        </div>
+        <div style="width: 150px; height: 240px;" class="margin-right">
+          <img src="http://p0.meituan.net/codeman/e473bb428f070321269b23370ff02ba956209.jpg" alt="" style="width: 150px; height: 240px;">
+        </div>
         <div style="width: 228px; height: 240px;" class="margin-right login-pane">
           <div class="float">
             <div class="login-container">
@@ -52,10 +61,19 @@
         </div>
       </div>
       <div class="banner-row clearfix">
-        <div style="width: 270px; height: 165px;" class="margin-right margin-top"></div>
-        <div style="width: 270px; height: 165px;" class="margin-right margin-top"></div>
-        <div style="width: 150px; height: 165px;" class="margin-right margin-top"></div>
-        <div style="width: 228px; height: 165px;" class="margin-right margin-top"></div>
+        <div style="width: 270px; height: 165px;" class="margin-right margin-top">
+          <img src="http://p1.meituan.net/codeman/8cce56c467a17e04f3094d1e455462a0132772.png" alt="" style="width: 270px; height: 165px;">
+        </div>
+        <div style="width: 270px; height: 165px;" class="margin-right margin-top">
+          <img src="http://p1.meituan.net/codeman/16442c19da1f1c4544f794e29d99c92051716.jpg" alt="" style="width: 270px; height: 165px;">
+        </div>
+        <div style="width: 150px; height: 165px;" class="margin-right margin-top">
+          <img src="http://p1.meituan.net/codeman/5b21cddb4bb1cbc3a9c3bce0f726c75940469.jpg" alt="" style="width: 150px; height: 165px;">
+        </div>
+        <div style="width: 228px; height: 165px; position: relative" class="margin-right margin-top">
+          <div class="advertising">广告</div>
+          <img src="https://p1.meituan.net/dpmerchantpic/ab800e5c54adb2b32801ed151993125279014.jpg@213w_120h_1e_1c" alt="" style="width: 228px; height: 165px;">
+        </div>
       </div>
     </div>
   </div>
@@ -71,18 +89,24 @@ export default {
     return {
       navList: [],
       headerLink: [
-        { title: '美团外卖', url: '',},
+        { title: '广工外卖', url: '',},
         { title: '猫眼电影', url: '',},
-        { title: '美团酒店', url: '',},
+        { title: '广工酒店', url: '',},
         { title: '民宿／公寓', url: '',},
         { title: '商家入驻', url: '',},
-        { title: '美团公益', url: '',},
+        { title: '广工公益', url: '',},
       ],
       kind: '',
+      carouselUrls: [
+        'http://p0.meituan.net/codeman/a97baf515235f4c5a2b1323a741e577185048.jpg',
+        'http://p0.meituan.net/codeman/daa73310c9e57454dc97f0146640fd9f69772.jpg',
+        'https://p1.meituan.net/travelcube/01d2ab1efac6e2b7adcfcdf57b8cb5481085686.png',
+        'http://p1.meituan.net/codeman/826a5ed09dab49af658c34624d75491861404.jpg',
+      ],
     }
   },
   computed:{
-    curdetail:function(){
+    curdetail:function(){ 
       return this.navList.filter(item => item.type===this.kind)[0]
     }
   },
@@ -221,6 +245,15 @@ export default {
       .margin-right {
         background: #fff;
         float: left;
+
+        .advertising {
+          position: absolute;
+          color: #FFF;
+          background: #dfdfdf;
+          opacity: 0.7;
+          right: 0;
+          top: 0;
+        }
       }
       .margin-top {
         margin-top: 10px;

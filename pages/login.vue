@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import CryptoJS from 'crypto-js'
 export default {
   data: () => {
@@ -52,6 +53,9 @@ export default {
   },
   layout: 'blank',
   methods: {
+    ...mapActions('modules/user', [
+      'setName',
+    ]),
     login: function () {
       let self=this;
       self.$axios.post('/users/signin',{

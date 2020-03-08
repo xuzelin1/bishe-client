@@ -3,6 +3,7 @@
     <dl>
       <dt>热门城市：</dt>
       <dd
+        @click="changeCity(item)"
         v-for="item in list"
         :key="item.id">{{ item.name==='市辖区'?item.province:item.name }}</dd>
     </dl>
@@ -10,6 +11,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   data(){
     return {
@@ -20,6 +22,22 @@ export default {
     let {status,data:{hots}}=await this.$axios.get('/geo/hotCity')
     if(status===200){
       this.list=hots
+    }
+  },
+  methods: {
+    ...mapActions('modules/geo', [
+      'setPosition'
+    ]),
+    changeCity (item) {
+      let province = item.province;
+      let city = item.name;
+      if(item.name==='市辖区') {
+        city = item.province;
+      }
+      this.setPosition({
+        province: province,
+        city: city
+      })
     }
   }
 }

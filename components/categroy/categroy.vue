@@ -15,6 +15,8 @@
       <dt :id="'city-'+item.title">{{ item.title }}</dt>
       <dd>
         <span
+          style="cursor: pointer;"
+          @click="changeCity(c)"
           v-for="c in item.city"
           :key="c">{{ c }}</span>
       </dd>
@@ -23,6 +25,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import pyjs from 'js-pinyin'
 export default {
   data(){
@@ -57,6 +60,17 @@ export default {
       }
       blocks.sort((a,b)=>a.title.charCodeAt(0)-b.title.charCodeAt(0))
       self.block=blocks
+    }
+  },
+  methods: {
+    ...mapActions('modules/geo', [
+      'setPosition'
+    ]),
+    changeCity (item) {
+      this.setPosition({
+        // province: province,
+        city: item
+      })
     }
   }
 }
