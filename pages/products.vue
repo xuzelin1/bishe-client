@@ -41,8 +41,8 @@ export default {
   },
   async asyncData(ctx){
     let keyword = ctx.query.keyword
-    // let city = ctx.store.state.geo.position.city
-    let city = '广州';
+    let city = this.store.state.geo.position.city
+    // let city = '广州';
     let {status,data:{count,pois}} = await ctx.$axios.get('/search/resultsByKeywords',{
       params:{
         keyword,

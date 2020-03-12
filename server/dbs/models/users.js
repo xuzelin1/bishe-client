@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { url } from 'koa-router'
 const Schema = mongoose.Schema
 const UserSchema=new Schema({
   username:{
@@ -10,9 +11,17 @@ const UserSchema=new Schema({
     type:String,
     require:true,
   },
+  avatar: {
+    type: String,
+    required: false,
+  },
   email:{
     type:String,
     require:true,
+  },
+  pwdStrength: {
+    type: Number,
+    require: true,
   }
 })
 

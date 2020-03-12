@@ -1,10 +1,10 @@
 const state = () => ({
-  username: [],
+  userInfo: {},
 })
 
 const mutations = {
   setName(state, val) {
-    state.username = val
+    state.userInfo = val
   },
 }
 

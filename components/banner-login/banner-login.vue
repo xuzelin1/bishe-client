@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!username" class="banner-login">
+  <div v-if="!userInfo.user" class="banner-login">
     <div class="head-img-row">
       <img src="https://s0.meituan.net/bs/fe-web-meituan/e350c4a/img/avatar.jpg" alt="">
     </div>
@@ -9,12 +9,14 @@
   </div>
   <div v-else class="banner-login">
     <div class="avatar-pane">
-      <img src="https://img.meituan.net/avatar/b3f80e2be1be1c5cd9357422f01f504f2028.jpg" alt="">      
+      <img v-if="userInfo.avatar" :src="userInfo.avatar" alt="">
+      <img :src="require('@/assets/images/default-avatar.png')" alt="">
     </div>
-    <p class="user-name">{{ username }}</p>
+    <p class="user-name">{{ userInfo.user }}</p>
+    <p class="user-mail">{{ userInfo.email }}</p>
 
     <div class="edit">
-      <nuxt-link to="/userinfo">
+      <nuxt-link to="/setting">
         <i class="el-icon-setting"></i>
       </nuxt-link>
     </div>
@@ -25,13 +27,16 @@
 export default {
   data () {
     return {
-      username: '',
+      userInfo: {
+        user: '',
+        email: '',
+        avatar: '',
+      },
     };
   },
   mounted () {
     this.$axios.get('users/getUser').then(res => {
-      console.log(res);
-      this.username = res.data.user;
+      this.userInfo = res.data;
     });
   }
 }
@@ -64,6 +69,9 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
       margin: 0 auto;
+    }
+    .user-mail {
+      text-align: center;
     }
 
     .btn-login {

@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
   import Module from '@/components/module';
   export default {
     components: {
@@ -76,6 +77,9 @@
       };
     },
     computed: {
+      ...mapState('modules/geo', [
+        'position'
+      ]),
       curList () {
         return this.tabDataList[this.tabType];
       }
@@ -93,7 +97,7 @@
         this.$axios.get('/search/resultsByKeywords', {
           params:{
             keyword,
-            city:'广州'
+            city: this.position.city,
           }
         }).then(res => {
           const { pois, count } = res.data

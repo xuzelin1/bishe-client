@@ -15,6 +15,7 @@ import json from 'koa-json'
 import dbConfig from './dbs/config'
 import passport from './interface/utils/passport'
 import mongoose from 'mongoose'
+mongoose.set('useFindAndModify', false)
 
 const app = new Koa()
 app.keys = ['xzl', 'keyskeys']

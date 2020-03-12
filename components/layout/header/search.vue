@@ -55,7 +55,8 @@ export default {
         params: {
           input: this.input,
           // city: this.city.replace('市', ''),
-          city: '广州',
+          // city: '广州',
+          city: this.$store.state.modules.geo.position.city,
         }
       }).then(({ data }) => {
         this.searchList = data.top;
@@ -69,7 +70,8 @@ export default {
     this.$axios.get('search/hotPlace', {
       params: {
         // city: this.city.replace('市', ''),
-        city: '广州',
+        // city: '广州',
+        city: this.$store.state.modules.geo.position.city,
       }
     }).then(({ data }) => {
       this.hotPlaceList = data.result;

@@ -19,6 +19,7 @@ router.post('/signup', async (ctx) => {
     password,
     email,
     code,
+    pwdStrength,
   } = ctx.request.body;
 
   if (code) {
@@ -53,7 +54,7 @@ router.post('/signup', async (ctx) => {
     };
     return;
   }
-  let nuser = await User.create({username, password, email});
+  let nuser = await User.create({username, password, email, pwdStrength});
   if (nuser) {
     let res = await axios.post('/users/signin', {username, password});
     if (res.data && res.data.code === 0) {
@@ -166,20 +167,107 @@ router.get('/exit', async (ctx, next) => {
 
 // 获取用户信息接口
 router.get('/getUser', async (ctx) => {
+  let res = ctx.response;
   if (ctx.isAuthenticated()) {
+    const {
+      _id,
+    } = ctx.session.passport.user;
+    const result = await User.findById({_id})
     const {
       username,
       email,
-    } = ctx.session.passport.user;
+      avatar,
+      pwdStrength,
+    } = result;
     ctx.body = {
       user: username,
       email,
+      _id,
+      avatar,
+      pwdStrength,
     };
-  } else {
+  }
+})
+
+// 编辑头像
+router.post('/avatar', async (ctx) => {
+  let {
+    _id,
+    avatar,
+  } = ctx.request.body;
+  await User.findOneAndUpdate({_id}, {$set: {avatar: avatar}}, {new: true}, (err, doc, res) => {
+    console.log('doc: ',doc, 'res: ', res);
     ctx.body = {
-      user: '',
-      email: '',
+      code: 0,
+      msg: '修改成功',
     };
+  });
+})
+
+// 编辑邮箱
+router.post('/email', async (ctx) => {
+  if (ctx.isAuthenticated()) {
+    let _id = ctx.request.body._id;
+    let email = ctx.request.body.email;
+    await User.findByIdAndUpdate({_id}, {$set: {email}}, {new: true}, (err, doc, res) => {
+      console.log(err, doc, res);
+      ctx.body = {
+        code: 0,
+        data: doc,
+      };
+    })
+  }
+})
+
+// 修改昵称
+router.post('/username', async (ctx) => {
+  if (ctx.isAuthenticated()) {
+    let _id = ctx.request.body._id;
+    let username = ctx.request.body.username;
+    await User.findByIdAndUpdate({_id}, {$set: {username}}, {new: true}, (err, doc, res) => {
+      console.log(err, doc, res);
+      ctx.body = {
+        code: 0,
+        data: doc,
+      };
+    })
+  }
+})
+
+// 修改密码
+router.post('/password', async (ctx) => {
+  if (ctx.isAuthenticated()) {
+    let _id = ctx.request.body._id;
+    let {
+      prePassword,
+      newPassword,
+      confirmPassword,
+      pwdStrength,
+    } = ctx.request.body;
+    if (ctx.isAuthenticated()) {
+      let res = await User.findById({_id});
+      console.log(prePassword, res.password);
+      if(res.password !== prePassword) {
+        ctx.body = {
+          code: -1,
+          msg: '密码错误',
+        }
+      }
+      else if(confirmPassword !== newPassword) {
+        ctx.body = {
+          code: -1,
+          msg: '两次密码不同',
+        }
+      } else {
+        await User.findByIdAndUpdate({_id}, {$set: {password: newPassword, pwdStrength,}}, {new: true}, (err, doc, res) => {
+          ctx.body = {
+            code: 0,
+            data: doc,
+          };
+        })
+      }
+    }
+
   }
 })
 

@@ -50,6 +50,7 @@
           <el-input
             v-model="ruleForm.pwd"
             type="password" />
+          <span>密码强度：{{ pwdStrengthZH }}</span>
         </el-form-item>
         <el-form-item
           label="确认密码"
@@ -82,6 +83,8 @@ export default {
     return {
       statusMsg: '',
       error: '',
+      pwdStrength: 0,
+      pwdStrengthZH: '',
       ruleForm: {
         name: '',
         code: '',
@@ -127,6 +130,28 @@ export default {
     }
   },
   layout: 'blank',
+  computed: {
+    hardPwdCheck () {
+      return this.ruleForm.pwd;
+    }
+  },
+  watch: {
+    hardPwdCheck (value) {
+      var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g")  //强
+      var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g")  //中
+      var enoughRegex = new RegExp("(?=.{6,}).*", "g") //弱
+      if (strongRegex.test(value)) {
+        this.pwdStrengthZH = '强';
+        this.pwdStrength = 3;
+      } else if (mediumRegex.test(value)) {
+        this.pwdStrengthZH = '中';
+        this.pwdStrength = 2;
+      } else if(enoughRegex.test(value)) {
+        this.pwdStrengthZH = '弱';
+        this.pwdStrength = 1;
+      }
+    },
+  },
   methods: {
     sendMsg: function () {
       const self = this;
@@ -176,7 +201,8 @@ export default {
             username: window.encodeURIComponent(self.ruleForm.name),
             password: CryptoJS.MD5(self.ruleForm.pwd).toString(),
             email: self.ruleForm.email,
-            code: self.ruleForm.code
+            code: self.ruleForm.code,
+            pwdStrength: this.pwdStrength,
           }).then(({
             status,
             data
