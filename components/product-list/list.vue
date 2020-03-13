@@ -1,6 +1,6 @@
 <template>
   <div class="m-products-list">
-    <dl>
+    <dl style="text-align: center;">
       <dd
         v-for="item in nav"
         :key="item.name"
@@ -8,11 +8,31 @@
         @click="navSelect"
       >{{ item.txt }}</dd>
     </dl>
-    <ul>
-      <Item
-        v-for="(item,idx) in list"
+    <ul class="product-list">
+      <!-- <Item
+        v-for="(item,idx) in productList"
         :key="idx"
-        :meta="item"/>
+        :meta="item"/> -->
+      <li
+        v-for="(item) in productList"
+        :key="item._id">
+        <div class="product-item">
+          <div class="img-pane">
+            <img :src="item.url
+              || 'https://p1.meituan.net/deal/6277acb85ab92a7800ef95ffaa62dc93121399.jpg@58_0_1484_900a%7C388h_640w_2e_90Q%7C213w_120h_1e_1c'" alt="">
+          </div>
+          <div class="item-info">
+            <h3>{{ item.name }}</h3>
+            <span class="star">评分：
+              <el-rate v-model="item.star" disabled style="display: inline-block"></el-rate>
+            </span>
+            <span class="comment-num">{{ item.commentNum }}条评价</span>
+            <p class="position">{{ item.position }}</p>
+            <span class="cur">￥{{ item.price }}</span>
+            <del class="old">门市价：{{ item.oldPrice }}</del>
+          </div>
+        </div>
+      </li>
     </ul>
   </div>
 </template>
@@ -33,6 +53,7 @@ export default {
   },
   data() {
     return {
+      productList: [],
       nav: [
         {
           name: 's-default',
@@ -54,14 +75,85 @@ export default {
       ]
     }
   },
-  async asyncData({app}) {
-    let { data } = await app.$axios.get('searchList')
-    return { items: data.list }
+  mounted () {
+    this.getProductList();
   },
   methods: {
+    getProductList () {
+      let res = this.$axios.post('/products/list', {
+        type: 'electircy'
+      }).then(res => {
+        console.log(res);
+        this.productList = res.data.data;
+      })
+    },
     navSelect: function () {
       console.log('select')
     }
   }
 }
 </script>
+
+<style lang="less" scoped>
+
+  .product-list {
+    margin-top: 20px;
+    border-top: 1px solid #efefef;
+  }
+
+  .product-item {
+    height: 145px;
+    padding: 10px 0;
+    border-bottom: 1px solid #efefef;
+
+    &::after {
+      content: '';
+      display: block;
+      clear: both;
+      *zoom: 1;
+    }
+    .img-pane {
+      height: 125px;
+      width: 220px;
+      border-radius: 5px;
+      overflow: hidden;
+      float: left;
+      margin-top: 10px;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .item-info {
+      padding-left: 20px;
+      float: left;
+
+      .star {
+        font-size: 12px;
+        padding-right: 8px;
+      }
+      .comment-num {
+        color: #ff6600;
+        font-size: 12px;
+      }
+
+      .position {
+        font-size: 12px;
+        color: #666;
+      }
+
+      .cur {
+        font-size: 18px;
+        color: #ff6600;
+      }
+
+      .old {
+        font-size: 12px;
+        color: #666;
+      }
+    }
+  }
+
+</style>

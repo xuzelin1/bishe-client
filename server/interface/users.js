@@ -246,7 +246,6 @@ router.post('/password', async (ctx) => {
     } = ctx.request.body;
     if (ctx.isAuthenticated()) {
       let res = await User.findById({_id});
-      console.log(prePassword, res.password);
       if(res.password !== prePassword) {
         ctx.body = {
           code: -1,
@@ -266,8 +265,12 @@ router.post('/password', async (ctx) => {
           };
         })
       }
+    } else {
+      ctx.body = {
+        code: -1,
+        msg: '请重新登录',
+      }
     }
-
   }
 })
 

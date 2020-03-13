@@ -138,7 +138,7 @@ export default {
     return {
       userInfo: {
         _id: '',
-        user: 'jack',
+        user: '',
         email: '',
       },
       // 头像修改
@@ -208,7 +208,6 @@ export default {
   },
   watch: {
     hardPwdCheck (value) {
-      console.log(value);
       var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g")  //强
       var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g")  //中
       var enoughRegex = new RegExp("(?=.{6,}).*", "g") //弱
@@ -233,9 +232,9 @@ export default {
     changePassword () {
       this.$refs['pwdForm'].validate((valid) => {
         if (valid) {
-          let prePassword = CryptoJS.MD5(this.prePassword).toString()
-          let newPassword = CryptoJS.MD5(this.newPassword).toString()
-          let confirmPassword = CryptoJS.MD5(this.confirmPassword).toString()
+          let prePassword = CryptoJS.MD5(this.passwordForm.prePassword).toString()
+          let newPassword = CryptoJS.MD5(this.passwordForm.newPassword).toString()
+          let confirmPassword = CryptoJS.MD5(this.passwordForm.confirmPassword).toString()
           if(confirmPassword !== newPassword) {
             this.$message({
               message: '两次密码不同',

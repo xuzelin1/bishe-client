@@ -1,21 +1,23 @@
 <template>
-  <el-row class="page-product">
-    <el-col :span="19">
-      <crumbs :keyword="keyword"/>
-      <categroy
-        :types="types"
-        :areas="areas"/>
-      <list :list="list"/>
-    </el-col>
-    <el-col :span="5">
-      <!-- <amap
-        v-if="point.length"
-        :width="230"
-        :height="290"
-        :point="point"/> -->
-    </el-col>
-  </el-row>
-
+  <div>
+    <Header />
+    <el-row class="page-product">
+      <!-- <el-col :span="19"> -->
+        <!-- <crumbs :keyword="keyword"/>
+        <categroy
+          :types="types"
+          :areas="areas"/> -->
+        <list :list="list"/>
+      <!-- </el-col> -->
+      <!-- <el-col :span="5">
+        <amap
+          v-if="point.length"
+          :width="230"
+          :height="290"
+          :point="point"/>
+      </el-col> -->
+    </el-row>
+  </div>
 </template>
 
 <script>
@@ -41,8 +43,8 @@ export default {
   },
   async asyncData(ctx){
     let keyword = ctx.query.keyword
-    let city = this.store.state.geo.position.city
-    // let city = '广州';
+    // let city = this.$store.state.geo.position.city
+    let city = '广州';
     let {status,data:{count,pois}} = await ctx.$axios.get('/search/resultsByKeywords',{
       params:{
         keyword,
@@ -83,6 +85,9 @@ export default {
 
 <style lang="less">
 .page-product{
+    width: 1190px;
+    margin: auto;
+  
     .m-crumbs{
         margin: 10px 0;
     }
