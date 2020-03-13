@@ -1,20 +1,20 @@
 <template>
   <div class="m-products-list">
-    <dl style="text-align: center;">
+    <!-- <dl style="text-align: center;">
       <dd
         v-for="item in nav"
         :key="item.name"
         :class="[item.name,item.acitve?'s-nav-active':'']"
         @click="navSelect"
       >{{ item.txt }}</dd>
-    </dl>
+    </dl> -->
     <ul class="product-list">
       <!-- <Item
         v-for="(item,idx) in productList"
         :key="idx"
         :meta="item"/> -->
       <li
-        v-for="(item) in productList"
+        v-for="(item) in dataList"
         :key="item._id">
         <div class="product-item">
           <div class="img-pane">
@@ -75,8 +75,19 @@ export default {
       ]
     }
   },
+  computed: {
+    dataList () {
+      console.log(this.list);
+      if(this.list.length > 0) {
+        return this.list;
+      }
+      return this.productList;
+    }
+  },
   mounted () {
-    this.getProductList();
+    if (this.list.length === 0) {
+      this.getProductList();
+    }
   },
   methods: {
     getProductList () {
@@ -97,6 +108,7 @@ export default {
 <style lang="less" scoped>
 
   .product-list {
+    width: 100%;
     margin-top: 20px;
     border-top: 1px solid #efefef;
   }
@@ -123,6 +135,7 @@ export default {
       img {
         width: 100%;
         height: 100%;
+        object-fit: cover;
       }
     }
 

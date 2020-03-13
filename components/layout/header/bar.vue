@@ -23,13 +23,13 @@ export default {
     return {
       navList: [
         {
-          label: '我的美团',
+          label: '我的团购',
         },
         {
           label: '商家中心',
         },
         {
-          label: '美团规则',
+          label: '团购规则',
         },
         {
           label: '网站导航',

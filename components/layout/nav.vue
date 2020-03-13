@@ -1,6 +1,6 @@
 <template>
   <div class="layout-nav">
-    <div class="title">美团导航</div>
+    <div class="title">团购导航</div>
     <div class="nav-content">
       <div class="nav-content-item" v-for="item in navList" :key="item.title">
         <div class="sub-title">{{ item.title }}</div>

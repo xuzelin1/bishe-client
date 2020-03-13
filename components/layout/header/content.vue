@@ -1,7 +1,7 @@
 <template>
   <div class="header-content clearfix">
     <div class="header-title-module">
-      <a href="" class="header-title">
+      <a href="/" class="header-title">
         <img src="https://s0.meituan.net/bs/fe-web-meituan/fa5f0f0/img/logo.png" alt="">
       </a>
     </div>

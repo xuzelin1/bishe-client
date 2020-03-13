@@ -52,6 +52,14 @@ const ProductSchema=new Schema({
     type:Number,
     require:true,
   },
+  inventory: {
+    type:Number,
+    require:true,
+  },
+  keywords: {
+    type:String,
+    require:true,
+  },
 })
 
 export default mongoose.model('Product',ProductSchema)

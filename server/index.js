@@ -9,6 +9,7 @@ import geo from './interface/geo';
 import search from './interface/search';
 import categroy from './interface/categroy'
 import products from './interface/products'
+import comments from './interface/comments'
 
 import session from 'koa-generic-session'
 import Redis from 'koa-redis'
@@ -60,6 +61,7 @@ async function start () {
   app.use(search.routes()).use(search.allowedMethods());
   app.use(categroy.routes()).use(categroy.allowedMethods())
   app.use(products.routes()).use(products.allowedMethods())
+  app.use(comments.routes()).use(comments.allowedMethods())
 
   app.use((ctx) => {
     ctx.status = 200
