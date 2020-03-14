@@ -22,7 +22,9 @@
               || 'https://p1.meituan.net/deal/6277acb85ab92a7800ef95ffaa62dc93121399.jpg@58_0_1484_900a%7C388h_640w_2e_90Q%7C213w_120h_1e_1c'" alt="">
           </div>
           <div class="item-info">
-            <h3>{{ item.name }}</h3>
+            <nuxt-link :to="'detail?id=' + item._id">
+              <h3>{{ item.name }}</h3>
+            </nuxt-link>
             <span class="star">评分：
               <el-rate v-model="item.star" disabled style="display: inline-block"></el-rate>
             </span>
@@ -107,6 +109,10 @@ export default {
 
 <style lang="less" scoped>
 
+  li {
+    list-style: none;
+  }
+
   .product-list {
     width: 100%;
     margin-top: 20px;
@@ -142,6 +148,10 @@ export default {
     .item-info {
       padding-left: 20px;
       float: left;
+
+      a {
+        color: #000;
+      }
 
       .star {
         font-size: 12px;

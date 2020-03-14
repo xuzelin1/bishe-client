@@ -10,6 +10,7 @@ import search from './interface/search';
 import categroy from './interface/categroy'
 import products from './interface/products'
 import comments from './interface/comments'
+import sales from './interface/sales'
 
 import session from 'koa-generic-session'
 import Redis from 'koa-redis'
@@ -62,6 +63,7 @@ async function start () {
   app.use(categroy.routes()).use(categroy.allowedMethods())
   app.use(products.routes()).use(products.allowedMethods())
   app.use(comments.routes()).use(comments.allowedMethods())
+  app.use(sales.routes()).use(sales.allowedMethods())
 
   app.use((ctx) => {
     ctx.status = 200
