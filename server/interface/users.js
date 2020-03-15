@@ -186,6 +186,11 @@ router.get('/getUser', async (ctx) => {
       avatar,
       pwdStrength,
     };
+  } else {
+    ctx.body = {
+      code: -1,
+      msg:'请登录',
+    }
   }
 })
 

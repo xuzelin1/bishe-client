@@ -14,7 +14,7 @@
         </div>
         <div class="bottom-info">
           月销量：{{ productDetail.salenum }}
-          <el-button icon="el-icon-shopping-cart-2" type="danger" circle></el-button>
+          <el-button icon="el-icon-shopping-cart-2" type="danger" circle @click="dialogCartVisible = true"></el-button>
         </div>
       </div>
       <div class="detail-imgs">
@@ -33,6 +33,16 @@
       <h3 style="margin-top: 0">网友点评</h3>
       <CommentList :proId="curId"/>
     </div>
+
+    <el-dialog title="加入购物车" :visible.sync="dialogCartVisible">
+      <h3>请输入购买数量</h3>
+      <div class="num-pane">
+        <el-button :disabled="productNum === 1" @click="productNum--">-</el-button>
+        <el-input v-model="productNum" style="width: 30%;"></el-input>
+        <el-button @click="productNum++">+</el-button>
+      </div>
+      <el-button type="primary" style="float: right;" @click="cartAddSubmit">确认</el-button>
+    </el-dialog>
   </div>
 </template>
 
@@ -42,9 +52,11 @@ import CommentList from '@/components/comment-list'
 export default {
   data () {
     return {
-      curId: '5e6a35d43fb9393f98828198',
+      curId: '',
       productDetail: {},
       guessList: [],
+      dialogCartVisible: false,
+      productNum: 1,
     }
   },
   components: {
@@ -52,6 +64,7 @@ export default {
     CommentList,
   },
   mounted () {
+    this.curId = this.$router.currentRoute.query.proId;
     this.getDetail(this.curId);
   },
   methods:{
@@ -68,6 +81,23 @@ export default {
         guess,
       }).then(res => {
         this.guessList = res.data.guesslist;
+      })
+    },
+    cartAddSubmit () {
+      this.$axios.post('/sales/create', {
+        proId: this.productDetail._id,
+        userId: '5e4624759c2f7d2cb0cfa154',
+        createTime: '2020-03-15',
+        total: this.productNum * this.productDetail.price,
+        productNum: this.productNum,
+        status: '00',
+      }).then(res => {
+        if(res.status == 200) {
+          this.$message({
+            message: '已经加入购物车',
+            type: 'success'
+          });
+        }
       })
     }
   }
@@ -142,6 +172,14 @@ export default {
       li {
         list-style: none;
       }
+    }
+
+    .num-pane {
+      margin: auto;
+    }
+
+    /deep/ .el-dialog__body {
+      overflow: hidden;
     }
   }
 </style>

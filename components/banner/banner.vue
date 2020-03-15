@@ -27,7 +27,11 @@
               <span
                 class="detail-item"
                 v-for="v in item.child"
-                :key="v">{{ v }}</span>
+                :key="v">
+                <nuxt-link :to="'/products?type=' + v">
+                  {{ v }}
+                </nuxt-link>
+              </span>
             </template>
           </div>
         </div>
@@ -111,8 +115,20 @@ export default {
     }
   },
   mounted () {
+    const item = {
+      child: [
+        {
+          child: [
+            '电子商品'
+          ],
+          title: '电子商品',
+        }
+      ],
+      name: '日常用品',
+      type: 'common',
+    }
     this.$axios.get('geo/menu').then((res) => {
-      this.navList = res.data.menu;
+      this.navList = res.data.menu.concat([item]);
     })
   },
   methods: {

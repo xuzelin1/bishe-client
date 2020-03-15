@@ -22,7 +22,7 @@
               || 'https://p1.meituan.net/deal/6277acb85ab92a7800ef95ffaa62dc93121399.jpg@58_0_1484_900a%7C388h_640w_2e_90Q%7C213w_120h_1e_1c'" alt="">
           </div>
           <div class="item-info">
-            <nuxt-link :to="'detail?id=' + item._id">
+            <nuxt-link :to="{ path: 'detail?proId=' + item._id}">
               <h3>{{ item.name }}</h3>
             </nuxt-link>
             <span class="star">评分：
@@ -51,7 +51,8 @@ export default {
       default(){
         return []
       }
-    }
+    },
+    type: String,
   },
   data() {
     return {
@@ -79,7 +80,6 @@ export default {
   },
   computed: {
     dataList () {
-      console.log(this.list);
       if(this.list.length > 0) {
         return this.list;
       }
@@ -88,21 +88,26 @@ export default {
   },
   mounted () {
     if (this.list.length === 0) {
+      // this.getProductList();
+    }
+  },
+  watch: {
+    type (value) {
       this.getProductList();
     }
   },
   methods: {
     getProductList () {
+      console.log(this.type);
       let res = this.$axios.post('/products/list', {
-        type: 'electircy'
+        type: this.type,
       }).then(res => {
-        console.log(res);
         this.productList = res.data.data;
       })
     },
-    navSelect: function () {
-      console.log('select')
-    }
+    // navSelect: function () {
+    //   console.log('select')
+    // }
   }
 }
 </script>

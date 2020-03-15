@@ -14,6 +14,20 @@
     </div>
     <p class="user-name">{{ userInfo.user }}</p>
     <p class="user-mail">{{ userInfo.email }}</p>
+    <div class="fn-pane">
+      <nuxt-link to="cart">
+        <i class="el-icon-s-goods"></i>
+        <div class="text">购物车</div>
+      </nuxt-link>
+      <nuxt-link to="userinfo">
+        <i class="el-icon-s-order"></i>
+        <div class="text">我的订单</div>
+      </nuxt-link>
+      <nuxt-link to="userinfo">
+        <i class="el-icon-menu"></i>
+        <div class="text">更多</div>
+      </nuxt-link>
+    </div>
 
     <div class="edit">
       <nuxt-link to="/setting">
@@ -115,6 +129,24 @@ export default {
       i {
         color: #000;
         font-size: 26px;
+      }
+    }
+
+    .fn-pane {
+      text-align: center;
+      padding: 0 20px;
+      padding-top: 10px;
+      a {
+        color: #ffc300;
+        width: 33.3%;
+        float: left;
+      }
+      i {
+        font-size: 20px;
+      }
+      .text {
+        color: #000;
+        font-size: 12px;
       }
     }
   }

@@ -7,7 +7,7 @@
         <categroy
           :types="types"
           :areas="areas"/> -->
-        <list :list="list"/>
+        <list :list="list" :type="type"/>
       <!-- </el-col> -->
       <!-- <el-col :span="5">
         <amap
@@ -38,8 +38,12 @@ export default {
       types:[],
       areas:[],
       keyword:'',
-      point:[]
+      point:[],
+      type: '',
     }
+  },
+  mounted () {
+    this.type = this.$router.currentRoute.query.type;
   },
   async asyncData(ctx){
     let keyword = ctx.query.keyword

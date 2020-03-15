@@ -2,17 +2,7 @@
   <div class="user-info">
     <Header />
     <div class="userinfo-container">
-      <div class="my-order">
-        <h3>我的菜单</h3>
-        <div class="item">
-          <nuxt-link to="/cart">我的订单</nuxt-link>
-          <i class="el-icon-arrow-right" style=""></i>
-        </div>
-        <div class="item">
-          <nuxt-link to="/cart">我的购物车</nuxt-link>
-          <i class="el-icon-arrow-right"></i>
-        </div>
-      </div>
+      <MyOrder />
 
       <div class="sale-list-container" v-if="tabStatus">
         <ul class="tab-pane">
@@ -104,12 +94,26 @@ export default {
     };
   },
   mounted () {
-    this.getGuessList('电脑')
+    this.getGuessList('手机')
     this.getUserInfo();
+  },
+  watch: {
+    tabStatus (value) {
+      this.$axios.post('/sales/salelist', {
+        userId: this.userInfo._id,
+        status: value,
+      }).then(res => {
+        console.log(res);
+        this.saleList = res.data.salelist;
+      })
+    },
   },
   methods: {
     getUserInfo() {
       this.$axios.get('users/getUser').then(res => {
+        if(res.data.code === -1) {
+          location.href = '/login';
+        }
         this.userInfo = res.data;
       });
     },
@@ -122,13 +126,6 @@ export default {
     },
     getSaleList (status) {
       this.tabStatus = status;
-      this.$axios.post('/sales/salelist', {
-        userId: this.userInfo._id,
-        // status,
-      }).then(res => {
-        console.log(res);
-        this.saleList = res.data.salelist;
-      })
     }
   }
 }
@@ -138,41 +135,13 @@ export default {
   .userinfo-container {
     width: 1190px;
     margin: 20px auto;
-
-    .my-order {
-      float: left;
-      background: #FFFFFF;
-      border: 1px solid #E5E5E5;
-      border-radius: 4px;
-      width: 210px;
-      min-height: 500px;
-      padding-bottom: 20px;
-      padding: 10px;
-      h3 {
-        margin: 0;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #E5E5E5;
-        margin-bottom: 10px;
-      }
-      .item {
-        height: 40px;
-        line-height: 40px;
-
-        a {
-          color: #000;
-        }
-
-        i {
-          float: right;
-          line-height: 40px;
-        }
-      }
-    }
+    margin-top: -35px;
 
     .sale-list-container,
     .info-page {
       width: 948px;
       float: right;
+      border: 1px solid #efefef;
     }
 
     .sale-list-container {

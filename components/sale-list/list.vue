@@ -18,7 +18,12 @@
       <div class="sale-status">
         {{ sale.statusZh }}
       </div>
+      <div class="fn-pane">
+        <el-button v-if="sale.status === '01'" type="danger">付款</el-button>
+        <el-button v-if="sale.status === '02'" type="warning">评价</el-button>
+      </div>
     </div>
+    <Empty :text="emptySale" v-if="list.length === 0"/>
   </div>
 </template>
 
@@ -29,10 +34,11 @@ export default {
   },
   data () {
     return {
+      emptySale: '订单列表为空'
     }
   },
-  mounted () {
-    
+  methods: {
+
   }
 }
 </script>
@@ -98,6 +104,10 @@ export default {
       line-height: 90px;
       text-align: center;
       width: 100px;
+    }
+
+    .fn-pane {
+      padding-left: 50px;
     }
   }
 </style>

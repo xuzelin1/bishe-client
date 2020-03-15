@@ -2,17 +2,7 @@
   <div class="setting-page">
     <Header />
     <div class="container">
-      <div class="my-order">
-        <h3>我的菜单</h3>
-        <div class="item">
-          <nuxt-link to="/cart">我的订单</nuxt-link>
-          <i class="el-icon-arrow-right" style=""></i>
-        </div>
-        <div class="item">
-          <nuxt-link to="/cart">我的购物车</nuxt-link>
-          <i class="el-icon-arrow-right"></i>
-        </div>
-      </div>
+      <MyOrder />
       <div class="setting-content">
         <h3>个人信息</h3>
         <p>账户设置</p>
@@ -338,36 +328,6 @@ export default {
   .container {
     margin: 20px auto;
     width: 1190px;
-
-    .my-order {
-      float: left;
-      background: #FFFFFF;
-      border: 1px solid #E5E5E5;
-      border-radius: 4px;
-      width: 210px;
-      min-height: 500px;
-      padding-bottom: 20px;
-      padding: 10px;
-      h3 {
-        margin: 0;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #E5E5E5;
-        margin-bottom: 10px;
-      }
-      .item {
-        height: 40px;
-        line-height: 40px;
-
-        a {
-          color: #000;
-        }
-
-        i {
-          float: right;
-          line-height: 40px;
-        }
-      }
-    }
 
     .setting-content {
       border: 1px solid #E5E5E5;
