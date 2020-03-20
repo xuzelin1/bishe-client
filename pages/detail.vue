@@ -63,7 +63,8 @@ export default {
     ProductList,
     CommentList,
   },
-  mounted () {
+  created () {
+    console.log(this.$router)
     this.curId = this.$router.currentRoute.query.proId;
     this.getDetail(this.curId);
   },

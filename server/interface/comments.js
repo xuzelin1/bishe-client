@@ -13,4 +13,35 @@ router.post('/list', async (ctx) => {
   }
 })
 
+router.post('/create', async (ctx) => {
+  if (ctx.isAuthenticated()) {
+    const {
+      _id,
+    } = ctx.session.passport.user;
+
+    const {
+      proId,
+      createTime,
+      star = 5,
+      content = '暂无评价',
+    } = ctx.request.body;
+
+    let newComment = await Comments.create({
+      proId,
+      userId: _id,
+      createTime,
+      star,
+      content,
+    })
+    ctx.body = {
+      newComment,
+    }
+  } else {
+    ctx.body = {
+      code: -1,
+      msg: '请登录'
+    }
+  }
+})
+
 export default router;

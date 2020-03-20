@@ -12,6 +12,17 @@ const map = {
 
 let router = new Router({prefix: '/Sales'})
 
+router.post('/detail', async (ctx) => {
+  const {
+    _id,
+  } = ctx.request.body;
+  const detail = await Sales.findById({_id}).populate('proId');
+  ctx.body = {
+    code: -1,
+    detail,
+  }
+})
+
 router.post('/salelist', async (ctx) => {
   if (ctx.isAuthenticated()) {
     const {

@@ -19,8 +19,9 @@
         {{ sale.statusZh }}
       </div>
       <div class="fn-pane">
-        <el-button v-if="sale.status === '01'" type="danger">付款</el-button>
-        <el-button v-if="sale.status === '02'" type="warning">评价</el-button>
+        <el-button v-if="sale.status === '01'" type="danger" size="small">付款</el-button>
+        <el-button v-if="sale.status === '02'" type="warning" size="small" @click="toComment(sale._id)">评价</el-button>
+        <el-button v-if="sale.status === '02'" type="danger" size="small">退款</el-button>
       </div>
     </div>
     <Empty :text="emptySale" v-if="list.length === 0"/>
@@ -38,7 +39,9 @@ export default {
     }
   },
   methods: {
-
+    toComment (saleId) {
+      location.href = '/comment?saleId=' + saleId;
+    }
   }
 }
 </script>
@@ -46,7 +49,7 @@ export default {
 <style lang="less">
   .sale-item {
     border-top: 1px solid #E5E5E5;
-    padding-top: 20px;
+    padding: 10px;
     
     &::after {
       content: '';
@@ -107,7 +110,9 @@ export default {
     }
 
     .fn-pane {
-      padding-left: 50px;
+      padding-left: 30px;
+      line-height: 90px;
+      margin-top: 0;
     }
   }
 </style>
