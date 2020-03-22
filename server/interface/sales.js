@@ -43,6 +43,29 @@ router.post('/salelist', async (ctx) => {
   }
 })
 
+// 商家的订单列表
+router.post('/salerList', async (ctx) => {
+  const {
+    storeId,
+    page = 1,
+    count = 10,
+    createTime = '',
+  } = ctx.request.body;
+  let total = 0;
+  let salelist = [];
+  if (createTime) {
+    total = await Sales.find({storeId, createTime}).countDocuments();
+    salelist = await Sales.find({storeId, createTime}).populate('proId').skip((page - 1) * count).limit(count);
+  } else {
+    total = await Sales.find({storeId}).countDocuments();
+    salelist = await Sales.find({storeId}).populate('proId').skip((page - 1) * count).limit(count);
+  }
+  ctx.body = {
+    total,
+    salelist,
+  }
+})
+
 router.post('/create', async (ctx) => {
   if (ctx.isAuthenticated()) {
     const {
@@ -55,6 +78,7 @@ router.post('/create', async (ctx) => {
       total = 0,
       productNum = 1,
       status = '00',
+      storeId,
     } = ctx.request.body;
     let statusZh = map[status];
 
@@ -66,6 +90,7 @@ router.post('/create', async (ctx) => {
       productNum,
       status,
       statusZh,
+      storeId,
     })
     ctx.body = {
       newSale,

@@ -317,7 +317,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   .clearfix:after {
     content: " ";
     visibility: hidden;
@@ -325,79 +325,82 @@ export default {
     height: 0;
     clear: both;
   }
-  .container {
-    margin: 20px auto;
-    width: 1190px;
 
-    .setting-content {
-      border: 1px solid #E5E5E5;
-      border-radius: 4px;
-      min-height: 200px;
-      width: 888px;
-      float: right;
-      background: #fff;
-      padding: 30px;
-      padding-bottom: 0;
+  .setting-page {
+    .container {
+      margin: 20px auto;
+      width: 1190px;
 
-      h3 {
-        margin: 0;
-      }
-      p {
-        font-size: 14px;
-      }
+      .setting-content {
+        border: 1px solid #E5E5E5;
+        border-radius: 4px;
+        min-height: 200px;
+        width: 888px;
+        float: right;
+        background: #fff;
+        padding: 30px;
+        padding-bottom: 0;
 
-      .content-item {
-        padding: 20px 0;
-        border-top: 1px solid #E5E5E5;
-        height: 60px;
-
-        .item-title {
+        h3 {
           margin: 0;
-          font-size: 18px;
-          border-right: 1px solid #E5E5E5;
-          padding-right: 20px;
-          padding-left: 40px;
-          float: left;
-          width: 100px;
-          line-height: 60px;
+        }
+        p {
+          font-size: 14px;
         }
 
-        .avatar {
-          float: left;
-          width: 60px;
+        .content-item {
+          padding: 20px 0;
+          border-top: 1px solid #E5E5E5;
           height: 60px;
-          overflow: hidden;
-          border-radius: 50%;
-          margin-left: 30px;
-          line-height: 60px;
 
-          img {
+          .item-title {
+            margin: 0;
+            font-size: 18px;
+            border-right: 1px solid #E5E5E5;
+            padding-right: 20px;
+            padding-left: 40px;
+            float: left;
+            width: 100px;
+            line-height: 60px;
+          }
+
+          .avatar {
+            float: left;
             width: 60px;
             height: 60px;
+            overflow: hidden;
+            border-radius: 50%;
+            margin-left: 30px;
+            line-height: 60px;
+
+            img {
+              width: 60px;
+              height: 60px;
+            }
           }
-        }
 
-        .item-con {
-          line-height: 60px;
-          font-size: 16px;
-          padding-left: 30px;
-          margin: 0;
-          float: left;
-        }
+          .item-con {
+            line-height: 60px;
+            font-size: 16px;
+            padding-left: 30px;
+            margin: 0;
+            float: left;
+          }
 
-        .btn-change {
-          background: #FFFFFF;
-          border: 1px solid #E5E5E5;
-          border-radius: 100px;
-          font-size: 14px;
-          color: #666666;
-          float: right;
-          height: 40px;
-          width: 82px;
-          cursor: pointer;
-          margin: 0 15px;
-          line-height: 40px;
-          text-align: center;
+          .btn-change {
+            background: #FFFFFF;
+            border: 1px solid #E5E5E5;
+            border-radius: 100px;
+            font-size: 14px;
+            color: #666666;
+            float: right;
+            height: 40px;
+            width: 82px;
+            cursor: pointer;
+            margin: 0 15px;
+            line-height: 40px;
+            text-align: center;
+          }
         }
       }
     }

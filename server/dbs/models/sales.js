@@ -46,6 +46,10 @@ const SaleSchema=new Schema({
      */
     type: String,
     require:true,
+  },
+  storeId: {
+    type: String,
+    require: true,
   }
 })
 

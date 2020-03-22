@@ -49,6 +49,7 @@
 <script>
 import ProductList from '@/components/product-list'
 import CommentList from '@/components/comment-list'
+import moment from 'moment'
 export default {
   data () {
     return {
@@ -64,7 +65,6 @@ export default {
     CommentList,
   },
   created () {
-    console.log(this.$router)
     this.curId = this.$router.currentRoute.query.proId;
     this.getDetail(this.curId);
   },
@@ -85,13 +85,15 @@ export default {
       })
     },
     cartAddSubmit () {
+      console.log(this.productDetail)
       this.$axios.post('/sales/create', {
         proId: this.productDetail._id,
-        userId: '5e4624759c2f7d2cb0cfa154',
-        createTime: '2020-03-15',
+        // userId: '5e4624759c2f7d2cb0cfa154',
+        createTime: moment(new Date()).format('YYYY-MM-DD'),
         total: this.productNum * this.productDetail.price,
         productNum: this.productNum,
         status: '00',
+        storeId: this.productDetail.storeId,
       }).then(res => {
         if(res.status == 200) {
           this.$message({

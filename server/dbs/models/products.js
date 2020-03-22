@@ -33,7 +33,7 @@ const ProductSchema=new Schema({
     require:true,
   },
   salerId: {
-    type:Number,
+    type:String,
     require:true,
   },
   commentNum: {
@@ -58,6 +58,11 @@ const ProductSchema=new Schema({
   },
   keywords: {
     type:String,
+    require:true,
+  },
+  storeId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Store',
     require:true,
   },
 })
