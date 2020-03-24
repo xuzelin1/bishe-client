@@ -8,7 +8,6 @@ router.get('/getMyStoreInfo', async (ctx) => {
     const {
       _id,
     } = ctx.session.passport.user;
-    console.log(_id)
     let res = await Store.findOne({salerId: _id})
     ctx.body = {
       data: res,
@@ -18,6 +17,24 @@ router.get('/getMyStoreInfo', async (ctx) => {
       code: -1,
       msg:'请登录',
     }
+  }
+})
+
+router.post('/edit', async (ctx) => {
+  const {
+    _id,
+    name,
+    position,
+    introduction,
+  } = ctx.request.body;
+
+  let res = await Store.findByIdAndUpdate({_id}, {
+    name,
+    position,
+    introduction,
+  }, {new: true});
+  ctx.body = {
+    data: res,
   }
 })
 

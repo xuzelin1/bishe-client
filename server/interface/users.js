@@ -178,6 +178,7 @@ router.get('/getUser', async (ctx) => {
       email,
       avatar,
       pwdStrength,
+      roles,
     } = result;
     ctx.body = {
       user: username,
@@ -185,6 +186,7 @@ router.get('/getUser', async (ctx) => {
       _id,
       avatar,
       pwdStrength,
+      roles,
     };
   } else {
     ctx.body = {
@@ -201,7 +203,6 @@ router.post('/avatar', async (ctx) => {
     avatar,
   } = ctx.request.body;
   await User.findOneAndUpdate({_id}, {$set: {avatar: avatar}}, {new: true}, (err, doc, res) => {
-    console.log('doc: ',doc, 'res: ', res);
     ctx.body = {
       code: 0,
       msg: '修改成功',
@@ -215,7 +216,6 @@ router.post('/email', async (ctx) => {
     let _id = ctx.request.body._id;
     let email = ctx.request.body.email;
     await User.findByIdAndUpdate({_id}, {$set: {email}}, {new: true}, (err, doc, res) => {
-      console.log(err, doc, res);
       ctx.body = {
         code: 0,
         data: doc,
@@ -230,7 +230,6 @@ router.post('/username', async (ctx) => {
     let _id = ctx.request.body._id;
     let username = ctx.request.body.username;
     await User.findByIdAndUpdate({_id}, {$set: {username}}, {new: true}, (err, doc, res) => {
-      console.log(err, doc, res);
       ctx.body = {
         code: 0,
         data: doc,

@@ -22,6 +22,10 @@ const UserSchema=new Schema({
   pwdStrength: {
     type: Number,
     require: true,
+  },
+  roles: {
+    type: Array,
+    require: true,
   }
 })
 

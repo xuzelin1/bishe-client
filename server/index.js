@@ -12,6 +12,7 @@ import products from './interface/products'
 import comments from './interface/comments'
 import sales from './interface/sales'
 import stores from './interface/stores'
+import menus from './interface/menus'
 
 import session from 'koa-generic-session'
 import Redis from 'koa-redis'
@@ -66,6 +67,7 @@ async function start () {
   app.use(comments.routes()).use(comments.allowedMethods())
   app.use(sales.routes()).use(sales.allowedMethods())
   app.use(stores.routes()).use(stores.allowedMethods())
+  app.use(menus.routes()).use(menus.allowedMethods())
 
   app.use((ctx) => {
     ctx.status = 200
