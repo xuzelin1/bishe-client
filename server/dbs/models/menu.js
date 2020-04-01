@@ -12,7 +12,7 @@ const MenuSchema=new Schema({
   },
   title: {
     type: String,
-    required: false,
+    required: true,
   },
   hot: {
     type: Number,

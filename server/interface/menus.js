@@ -15,15 +15,24 @@ router.post('/create', async (ctx) => {
     key,
     title,
     childs,
+    hot,
   } = ctx.request.body;
-
-  let res = await Menu.create({
-    key,
-    title,
-    childs,
-  }, {new: true});
-  ctx.body = {
-    data: res,
+  try {
+    let res = await Menu.create({
+      key,
+      title,
+      childs,
+      hot,
+    }, {new: true});
+    ctx.body = {
+      code: 0,
+      data: res,
+    }
+  } catch (e) {
+    ctx.body = {
+      code: -1,
+      error: e,
+    }
   }
 })
 
