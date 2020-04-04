@@ -2,7 +2,7 @@
   <div class="header-content clearfix">
     <div class="header-title-module">
       <a href="/" class="header-title">
-        <img src="https://s0.meituan.net/bs/fe-web-meituan/fa5f0f0/img/logo.png" alt="">
+        <img src="https://dss1.baidu.com/70cFfyinKgQFm2e88IuM_a/forum/pic/item/0cd7912397dda144ec297cbdb5b7d0a20cf48698.jpg" alt="">
       </a>
     </div>
     <div class="header-search-module">
@@ -38,8 +38,10 @@ export default {
       vertical-align: sub;
 
       img {
-        width: 126px;
-        height: 46px;
+        // width: 126px;
+        // height: 46px;
+        width: 80px;
+        height: 80px;
         border: 0;
       }
     }
