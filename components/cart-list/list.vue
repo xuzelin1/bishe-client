@@ -25,6 +25,7 @@
         <span>总价：￥{{ totalPay }}</span>
       </div>
       <el-button class="accountBtn" @click="toAccount">结算</el-button>
+      <el-button class="accountBtn delete" @click="deleteCarts">删除</el-button>
     </div>
   </div>
 </template>
@@ -46,6 +47,26 @@ export default {
       } else {
         this.totalPay -= cart.total;
       }
+    },
+    deleteCarts () {
+      const submitArray = this.list.filter(item => {
+        if(item.isCheck) {
+          return item;
+        }
+      }).map(item => {
+        return item._id;
+      })
+      this.$confirm('确定删除吗?', '提示', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$axios.post('/sales/delete', {
+          submitArray,
+        }).then(res => {
+          location.reload();
+        })
+      })
     },
     toAccount () {
       const submitArray = this.list.filter(item => {
@@ -170,6 +191,11 @@ export default {
       float: right;
       background-color: red;
       color: #fff;
+      margin-left: 20px;
+
+      &.delete {
+        background-color: orange;
+      }
     }
   }
 </style>

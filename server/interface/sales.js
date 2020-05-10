@@ -117,4 +117,15 @@ router.post('/status', async (ctx) => {
   }
 })
 
+router.post('/delete', async (ctx) => {
+  const { submitArray } = ctx.request.body;
+  for(let i in submitArray) {
+    await Sales.findByIdAndDelete({_id: submitArray[i]});
+  }
+  ctx.body = {
+    code: 0,
+    msg: '成功',
+  }
+})
+
 export default router;
