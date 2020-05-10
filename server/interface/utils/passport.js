@@ -9,9 +9,12 @@ passport.use(new LocalStrategy(async function(username,password,done){
   };
   let result = await UserModel.findOne(where)
   if(result!=null){
-    if(result.password===password){
+    if(result.password===password && !result.forbid){
       return done(null,result);
-    }else{
+    }else if (result.forbid) {
+      return done(null,false,'账号禁用');
+    }
+    else{
       return done(null,false,'密码错误');
     }
   }else{

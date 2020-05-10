@@ -26,6 +26,10 @@ const UserSchema=new Schema({
   roles: {
     type: Array,
     require: true,
+  },
+  forbid: {
+    type: Boolean,
+    require: true,
   }
 })
 
