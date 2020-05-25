@@ -90,7 +90,7 @@ export default {
         code: '',
         pwd: '',
         cpwd: '',
-        email: ''
+        email: 'xuzelin995@163.com'
       },
       rules: {
         name: [{
@@ -222,6 +222,27 @@ export default {
           })
         }
       })
+    },
+    helper(target) {
+      return Object.prototype.toString.call(target).slice(8, -1);
+    },
+    deepClone(obj) {
+      let type = helper(obj);
+      let res;
+
+      if (type === 'Object') {
+        res = {};
+      } else if (type === 'Array') {
+        res = [];
+      } else {
+        return obj;
+      }
+
+      for(let key in obj) {
+        const cur = obj[key];
+        res[key] = typeof cur === 'object' ? deepClone(cur) : cur;
+      }
+      return res;
     }
   }
 }

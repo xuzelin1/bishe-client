@@ -23,7 +23,7 @@
           </div>
           <div class="item-info">
             <nuxt-link :to="{ path: 'detail?proId=' + item._id}">
-              <h3>{{ item.name }}</h3>
+              <h3 @click="gotoDetail">{{ item.name }}</h3>
             </nuxt-link>
             <span class="star">评分：
               <el-rate v-model="item.star" disabled style="display: inline-block"></el-rate>
@@ -105,6 +105,9 @@ export default {
         this.productList = res.data.data;
       })
     },
+    gotoDetail () {
+      this.$emit('forDetail')
+    }
     // navSelect: function () {
     //   console.log('select')
     // }

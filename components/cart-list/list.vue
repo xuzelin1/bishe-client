@@ -1,6 +1,8 @@
 <template>
   <div class="cart-list">
-    <div class="item-pane">
+    <div
+      class="item-pane"
+      v-if="list.length">
       <div
         v-for="cart in list"
         :key="cart._id"
@@ -18,7 +20,10 @@
           总价：{{ cart.total }}
         </div>
       </div>
-      </div>
+    </div>
+    <div v-else>
+      <Empty :text="emptySale"/>
+    </div>
 
     <div class="fn-pane" v-if="totalPay > 0">
       <div class="total-pay">
@@ -38,6 +43,7 @@ export default {
   data () {
     return {
       totalPay: 0,
+      emptySale: '购物车为空',
     };
   },
   methods: {

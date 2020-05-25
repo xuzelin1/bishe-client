@@ -1,6 +1,7 @@
 <template>
   <div class="m-comments-list">
-    <ul class="comment-list">
+    <ul class="comment-list"
+        v-if="commentList.length">
       <li
         v-for="(item) in commentList"
         :key="item._id">
@@ -19,6 +20,9 @@
         </div>
       </li>
     </ul>
+    <div v-else>
+      <Empty :text="emptySale"/>
+    </div>
   </div>
 </template>
 
@@ -30,6 +34,7 @@ export default {
   data() {
     return {
       commentList: [],
+      emptySale: '暂无评价',
     }
   },
   mounted () {

@@ -47,7 +47,7 @@ export default {
       commentForm: {
         saleId: '',
         content: '',
-        createTime: '2020-03-15',
+        createTime: '2020-05-25',
         star: 0,
       },
       saleDetail: {
@@ -88,11 +88,11 @@ export default {
             status: '03',
           }).then(res => {
             // if(res.data.status === 200) {
-            location.reload()
+            // location.reload()
             // }
-          })
-          this.$router.push({
-            path: 'detail?proId=' + this.saleDetail.proId._id,
+            this.$router.push({
+              path: 'detail?proId=' + this.saleDetail.proId._id,
+            })
           })
         }
       })

@@ -19,9 +19,9 @@
         {{ sale.statusZh }}
       </div>
       <div class="fn-pane">
-        <el-button v-if="sale.status === '01'" type="danger" size="small">付款</el-button>
+        <el-button v-if="sale.status === '01'" type="danger" size="small" @click="toPay(sale._id)">付款</el-button>
         <el-button v-if="sale.status === '02'" type="warning" size="small" @click="toComment(sale._id)">评价</el-button>
-        <el-button v-if="sale.status === '02'" type="danger" size="small">退款</el-button>
+        <el-button v-if="sale.status === '02'" type="danger" size="small" @click="refund(sale._id)">退款</el-button>
       </div>
     </div>
     <Empty :text="emptySale" v-if="list.length === 0"/>
@@ -41,6 +41,46 @@ export default {
   methods: {
     toComment (saleId) {
       location.href = '/comment?saleId=' + saleId;
+    },
+    toPay (saleId) {
+      const submitArray = [saleId];
+      this.$confirm('确定结算吗?', '提示', {
+        confirmButtonText: '付款',
+        cancelButtonText: '未付款',
+        type: 'warning'
+      }).then(() => {
+        // 付款
+        this.$axios.post('/sales/status', {
+          submitArray,
+          status: '02',
+        }).then(res => {
+          // if(res.data.status === 200) {
+          location.reload()
+          // }
+        })
+      }).catch(() => {
+        // 未付款
+      });
+    },
+    refund (saleId) {
+      const submitArray = [saleId];
+      this.$confirm('确定退款吗?', '提示', {
+        confirmButtonText: '退款',
+        cancelButtonText: '未退款',
+        type: 'warning'
+      }).then(() => {
+        // 退款
+        this.$axios.post('/sales/status', {
+          submitArray,
+          status: '11',
+        }).then(res => {
+          // if(res.data.status === 200) {
+          location.reload()
+          // }
+        })
+      }).catch(() => {
+        // 未退款
+      });
     }
   }
 }

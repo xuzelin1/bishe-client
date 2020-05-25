@@ -8,6 +8,7 @@
         <span class="nav-item" v-for="nav in navList" :key="nav.label">
           {{ nav.label }}
         </span>
+        <a href="http://localhost:9527/" class="nav-item" target="_blank" rel="noopener">商家中心</a>
       </div>
     </div>
   </div>
@@ -25,9 +26,9 @@ export default {
         {
           label: '我的团购',
         },
-        {
-          label: '商家中心',
-        },
+        // {
+        //   label: '商家中心',
+        // },
         {
           label: '团购规则',
         },
@@ -69,6 +70,7 @@ export default {
         float: right;
 
         .nav-item {
+          color: #999;
           float: left;
           position: relative;
           height: 40px;

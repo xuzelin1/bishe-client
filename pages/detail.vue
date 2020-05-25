@@ -24,9 +24,9 @@
       </div>
     </div>
 
-    <div class="other-product-list">
+    <div class="other-product-list" v-if="guessList.length">
       <h3 style="margin-top: 0">猜你喜欢</h3>
-      <ProductList :list="guessList"/>
+      <ProductList :list="guessList" @forDetail="forDetail"/>
     </div>
 
     <div class="comment-pane">
@@ -43,6 +43,10 @@
       </div>
       <el-button type="primary" style="float: right;" @click="cartAddSubmit">确认</el-button>
     </el-dialog>
+
+    <div class="u-goto-cart">
+      <el-button icon="el-icon-shopping-cart-2" type="danger" circle @click="gotoCart"></el-button>
+    </div>
   </div>
 </template>
 
@@ -69,6 +73,12 @@ export default {
     this.getDetail(this.curId);
   },
   methods:{
+    forDetail () {
+      console.log(123)
+      setTimeout(() => {
+        location.reload()
+      }, 500)
+    },
     getDetail(_id) {
       this.$axios.post('/products/detail', {
         _id,
@@ -102,6 +112,9 @@ export default {
           });
         }
       })
+    },
+    gotoCart () {
+      location.href = '/cart'
     }
   }
 }
@@ -183,6 +196,12 @@ export default {
 
     /deep/ .el-dialog__body {
       overflow: hidden;
+    }
+
+    .u-goto-cart {
+      position: fixed;
+      right: 250px;
+      bottom: 150px;
     }
   }
 </style>

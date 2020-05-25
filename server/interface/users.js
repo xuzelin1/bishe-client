@@ -56,7 +56,7 @@ router.post('/signup', async (ctx) => {
   }
   let nuser = await User.create({username, password, email, pwdStrength});
   if (nuser) {
-    let res = await axios.post('/users/signin', {username, password});
+    let res = await axios.post('http://localhost:3000/users/signin', {username, password});
     if (res.data && res.data.code === 0) {
       ctx.body = {
         code: 0,
