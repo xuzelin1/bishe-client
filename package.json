@@ -35,7 +35,7 @@
     "less-loader": "^5.0.0",
     "moment": "^2.24.0",
     "mongoose": "^5.8.12",
-    "nodemailer": "^6.4.2",
+    "nodemailer": "^6.4.16",
     "nuxt": "^2.0.0",
     "passport-local": "^1.0.0"
   },
